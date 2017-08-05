@@ -46,6 +46,7 @@ def svm_loss_naive(W, X, y, reg):
 
   # Add regularization to the loss.
   loss += reg * np.sum(W * W)
+  dW += reg * W
 
   #############################################################################
   # TODO:                                                                     #
@@ -104,7 +105,7 @@ def svm_loss_vectorized(W, X, y, reg):
   # for the +1 here: margin for the expected class is be calculated
   # as positive margin 1 which should be zero
   mask[np.arange(y.shape[0]), y] = -np.sum(mask, axis=1) + 1
-  dW = X.T.dot(mask)/y.shape[0]
+  dW = X.T.dot(mask) / y.shape[0] + reg * W
   #############################################################################
   #                             END OF YOUR CODE                              #
   #############################################################################
